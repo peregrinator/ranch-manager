@@ -1,0 +1,89 @@
+#!/usr/bin/env ruby
+module RancherManagerCLI
+  require 'gli'
+  require 'ranch-manager'
+
+  include GLI::App
+  # our cli is wrapped in a module (to not pollute the global namespace with GLI methods),
+  # so we need to extend here for things to work
+  extend self
+
+  program_desc 'Command line tools for using Rancher in a development environment'
+
+  version RanchManager::VERSION
+
+  subcommand_option_handling :normal
+  arguments :strict
+
+  desc 'Creates files and directories needed by rancher-manager'
+  command :setup do |c|
+    c.action do |global_options,options,args|
+      RanchManager::Setup.setup
+    end
+  end
+
+  desc 'Manage IP addresses assigned to hostnames'
+  command :ip do |c|
+
+    c.desc 'Refreshes all managed hostnames to point to your current IP Address'
+    c.arg_name 'ip address', :optional
+    c.command :refresh do |refresh|
+      refresh.action do |global_options,options,args|
+        RanchManager::IpManager.update_all(args[0])
+      end
+    end
+
+    c.desc 'Adds a hostname to manage'
+    c.arg_name 'hostname'
+    c.arg_name 'ip address', :optional
+    c.command :add do |add|
+      add.action do |global_options,options,args|
+        RanchManager::IpManager.add(args[0], args[1])
+      end
+    end
+
+    c.desc 'Updates the IP address of a hostname (removes then adds)'
+    c.arg_name 'hostname'
+    c.arg_name 'ip address', :optional
+    c.command :update do |add|
+      add.action do |global_options,options,args|
+        RanchManager::IpManager.update(args[0], args[1])
+      end
+    end
+
+    c.desc 'Removes a hostname from management'
+    c.arg_name 'hostname'
+    c.command :remove do |add|
+      add.action do |global_options,options,args|
+        RanchManager::IpManager.remove(args[0])
+      end
+    end
+  end
+
+  pre do |global,command,options,args|
+    if command.parent && command.parent.name == :ip
+      message = ":ip commands must be run as sudo because they make changes to /etc/hosts"
+      exit_now!(message) unless Process.euid == 0
+    end
+    # Pre logic here
+    # Return true to proceed; false to abort and not call the
+    # chosen command
+    # Use skips_pre before a command to skip this block
+    # on that command only
+    true
+  end
+
+  post do |global,command,options,args|
+    # Post logic here
+    # Use skips_post before a command to skip this
+    # block on that command only
+  end
+
+  on_error do |exception|
+    # Error logic here
+    # return false to skip default error handling
+    true
+  end
+
+  exit run(ARGV)
+end

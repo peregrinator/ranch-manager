@@ -1,0 +1,35 @@
+PATH
+  remote: .
+  specs:
+    ranch-manager (0.0.1)
+      ghost (= 1.0.0)
+      gli (= 2.16.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    coderay (1.1.1)
+    ghost (1.0.0)
+      unindent (= 1.0)
+    gli (2.16.0)
+    method_source (0.8.2)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    rake (12.0.0)
+    rdoc (5.1.0)
+    slop (3.6.0)
+    unindent (1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  pry
+  rake
+  ranch-manager!
+  rdoc
+
+BUNDLED WITH
+   1.13.7
