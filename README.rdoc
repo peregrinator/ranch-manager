@@ -1,0 +1,6 @@
+= ranch-manager
+
+Describe your project here
+
+:include:ranch-manager.rdoc
+
