@@ -26,10 +26,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  pry
-  rake
+  pry (~> 0.10.4)
+  rake (~> 12.0.0)
   ranch-manager!
-  rdoc
+  rdoc (~> 5.1.0)
 
 BUNDLED WITH
-   1.13.7
+   1.14.6

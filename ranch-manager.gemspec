@@ -22,9 +22,9 @@ spec = Gem::Specification.new do |s|
   s.bindir = 'bin'
   s.executables << 'ranch-manager'
 
-  s.add_development_dependency('rake', '~> 0')
-  s.add_development_dependency('rdoc', '~> 0')
-  s.add_development_dependency('pry', '~> 0')
+  s.add_development_dependency('rake', '~> 12.0.0')
+  s.add_development_dependency('rdoc', '~> 5.1.0')
+  s.add_development_dependency('pry', '~> 0.10.4')
 
   s.add_runtime_dependency('gli','2.16.0')
   s.add_runtime_dependency('ghost','1.0.0')
