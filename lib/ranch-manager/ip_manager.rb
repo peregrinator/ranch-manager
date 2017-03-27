@@ -1,6 +1,8 @@
 module RanchManager
   class IpManager
     def self.update_all(ip=current_ip_address.strip)
+      ip ||= current_ip_address.strip
+
       hostnames.each do |host|
         if `ghost list | grep '#{host}'`
           update(host, ip)
@@ -11,6 +13,7 @@ module RanchManager
     end
 
     def self.add(host, ip=current_ip_address.strip)
+      ip ||= current_ip_address.strip
       Logger.info "Adding #{host} to rancher-manager with ip #{ip}"
 
       host = Hostname.new(*[host, ip].compact)
@@ -23,6 +26,7 @@ module RanchManager
     end
 
     def self.update(host, ip=current_ip_address.strip)
+      ip ||= current_ip_address.strip
       Logger.info "Updating ip address for #{host}"
       remove(host)
       add(host, ip)
