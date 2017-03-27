@@ -7,7 +7,7 @@ spec = Gem::Specification.new do |s|
   s.version = RanchManager::VERSION
   s.author = 'Peregrinator'
   s.email = 'bob.burbach@gmail.co'
-  s.homepage = 'https://github/peregrinator/ranch-manager'
+  s.homepage = 'https://github.com/peregrinator/ranch-manager'
   s.platform = Gem::Platform::RUBY
   s.summary = 'Command line tools for using Rancher in a development environment'
 
@@ -22,9 +22,9 @@ spec = Gem::Specification.new do |s|
   s.bindir = 'bin'
   s.executables << 'ranch-manager'
 
-  s.add_development_dependency('rake')
-  s.add_development_dependency('rdoc')
-  s.add_development_dependency('pry')
+  s.add_development_dependency('rake', '~> 0')
+  s.add_development_dependency('rdoc', '~> 0')
+  s.add_development_dependency('pry', '~> 0')
 
   s.add_runtime_dependency('gli','2.16.0')
   s.add_runtime_dependency('ghost','1.0.0')
